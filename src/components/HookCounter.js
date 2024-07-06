@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from 'react'
 
 function HookCounter() {
-    const [count, setCount] = useState(0)
-    const [name, setName] = useState('')
+    const [x, setX] = useState(0)
+    const [y, setY] = useState(0)
+
+    const logMousePosition = e => {
+      console.log('mouse event')
+      setX(e.clientX)
+      setY(e.clientY)
+    }
 
     useEffect(() => {
         console.log('call useEffect hook');
-        document.title = `You clicked ${count} times.`
-    },[count])
+        window.addEventListener('mousemove', logMousePosition);
+    },[])
   return (
     <div>
-        <input type='text' value={name} onChange={e => setName(e.target.value)}/>
-        <button onClick={() => setCount(count + 1)}>Click {count} times</button>
+        Hooks X - {x}, Y - {y}
     </div>
   )
 }
