@@ -1,29 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from "react";
 
 function HookCounter() {
-    const [x, setX] = useState(0)
-    const [y, setY] = useState(0)
+  const [count, setCount] = useState(0);
 
-    const logMousePosition = e => {
-      console.log('mouse event')
-      setX(e.clientX)
-      setY(e.clientY)
-    }
+  const tick = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
 
-    useEffect(() => {
-        console.log('call useEffect hook');
-        window.addEventListener('mousemove', logMousePosition);
+  useEffect(() => {
+    document.title = `Timer run ${count} times`
+  });
 
-        return () => {
-          console.log('component unmounting')
-          window.removeEventListener('mousemove', logMousePosition)
-        }
-    },[])
-  return (
-    <div>
-        Hooks X - {x}, Y - {y}
-    </div>
-  )
+  useEffect(() => {
+    const interval = setInterval(tick, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+  return <div>{count}</div>;
 }
 
-export default HookCounter
+export default HookCounter;
