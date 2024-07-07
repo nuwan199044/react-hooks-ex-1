@@ -4,7 +4,7 @@ function HookCounter() {
     const [count, setCount] = useState(0)
 
     const tick = () => {
-      setCount(count + 1)
+      setCount(prevCount => prevCount + 1)
     }
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function HookCounter() {
         return () => {
           clearInterval(interval)
         }
-    },[count])
+    },[])
   return (
     <div>
         {count}
